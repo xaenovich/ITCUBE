@@ -1,4 +1,4 @@
-line = input()
+line = input('Введите строку содержащую букву f')
 
 for _ in range(len(line)):
     counter = line.count('f')
@@ -11,8 +11,8 @@ for _ in range(len(line)):
 
 
 if counter == 1:
-    print(index)
+    print('Единственный индекс: 'index)
 elif counter > 1:
-    print(index,index2)
+    print('Первый: 'index,'Последний: 'index2)
 else:
     print('NO')
