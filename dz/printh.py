@@ -1,4 +1,4 @@
-line = input()
+line = input('Введите текст содержащий хотябы 2 буквы h: ')
 
 for _ in range(len(line)):
     counter = line.count('h')
