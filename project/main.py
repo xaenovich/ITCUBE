@@ -1,5 +1,12 @@
 import cv2 as cv
 import numpy as np
+from random import randint
+
+all_colors = ['red','green','blue']
+color_lst = []
+rand_colors =[]
+last_color = ''
+counter = 0
 
 lower_r = np.array([170,100,90])
 upper_r = np.array([255,255,255])
@@ -16,14 +23,19 @@ colors = {
     'blue' : [lower_b,upper_b],
 }
 
-color_lst = []
-last_color = ''
-
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture(1)
+    
 while True:
     far,frame = cap.read()
     hsv = cv.cvtColor(frame,cv.COLOR_BGR2HSV)
-
+    
+    while counter != 3:
+        item = all_colors[randint(0,2)]
+        if last_color != item:
+            rand_colors.append(item)
+            last_color = item
+            counter += 1
+        
     for color_name,(lower,upper)in colors.items():
         mask = cv.inRange(hsv,lower,upper)
         count = cv.countNonZero(mask)
@@ -31,11 +43,16 @@ while True:
             cv.putText(frame,color_name,(100,100),cv.FONT_HERSHEY_TRIPLEX,1,(155,0,155),2)
             if last_color != color_name:
                 color_lst.append(color_name)
+                last_color = color_name
+            break
 
     cv.imshow('streem',frame)
 
-    if cv.waitKey(1) == ord('q'):
+    if cv.waitKey(1) == ord('q') or len(color_lst) == 3:
             break
 
 cv.destroyAllWindows()
 print(color_lst)
+print(rand_colors)
+if color_lst == rand_colors:
+    print('Вы выйграли!')
