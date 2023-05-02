@@ -27,24 +27,22 @@ colors = {
 }
 
 cap = VideoCapture(0)
-    
+while counter != 3:
+    item = all_colors[randint(0,2)]
+    if last_color != item:
+        rand_colors.append(item)
+        last_color = item
+        counter += 1
+print(rand_colors)
+
 while True:
     far,frame = cap.read()
-    hsv = cvtColor(frame,COLOR_BGR2HSV)
-    
-    #Подбор рандомных цветов
-    while counter != 3:
-        item = all_colors[randint(0,2)]
-        if last_color != item:
-            rand_colors.append(item)
-            last_color = item
-            counter += 1
-        
+    hsv = cvtColor(frame,COLOR_BGR2HSV)  
     for color_name,(lower,upper) in colors.items():
         mask = inRange(hsv,lower,upper)
         count = countNonZero(mask)
-        if count > 10000: #Проверка количества пикселей не равных 0
-            putText(frame,color_name,(100,100),FONT_HERSHEY_TRIPLEX,1,(155,0,155),2) #Вывод на экран название цвета
+        if count > 10000:
+            putText(frame,color_name,(100,100),FONT_HERSHEY_TRIPLEX,1,(155,0,155),2)
             if last_color != color_name:
                 color_lst.append(color_name)
                 last_color = color_name
@@ -58,8 +56,7 @@ while True:
 
 destroyAllWindows()
 print(color_lst)
-print(rand_colors)
 
-#Сравнение показаных и рандомных цветов
+#Сравнение цветов
 if color_lst == rand_colors:
     print('Вы выйграли!')
