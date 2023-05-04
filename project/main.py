@@ -51,12 +51,10 @@ while True:
     imshow('stream',frame)
 
     #Выключение по нажатию или если набрано достаточно цветов
-    if waitKey(1) == ord('q') or len(color_lst) == 3:
+    if waitKey(1) == ord('q') or color_lst == rand_colors:
         break
+    elif len(color_lst) and rand_colors != color_lst:
+        color_lst = []
 
 destroyAllWindows()
 print(color_lst)
-
-#Сравнение цветов
-if color_lst == rand_colors:
-    print('Вы выйграли!')
