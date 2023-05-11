@@ -41,7 +41,7 @@ while True:
     for color_name,(lower,upper) in colors.items():
         mask = inRange(hsv,lower,upper)
         count = countNonZero(mask)
-        if count > 50000:
+        if count > 100000:
             putText(frame,color_name,(100,100),FONT_HERSHEY_TRIPLEX,1,(155,0,155),2)
             if last_color != color_name:
                 color_lst.append(color_name)
@@ -49,12 +49,14 @@ while True:
             break
 
     imshow('stream',frame)
+
+    #Выключение по нажатию или если набрано достаточно цветов
     if waitKey(1) == ord('q') or color_lst == rand_colors:
+        print(color_lst)
         break
-    elif len(color_lst) == 3 and color_lst != rand_colors:
+    elif len(color_lst) == 3 and rand_colors != color_lst:
         color_lst = []
-    #Выключение по нажатию или если набрано достаточно цвето
+
 destroyAllWindows()
-print(color_lst)
 if color_lst == rand_colors:
     print('Вы выйграли')
