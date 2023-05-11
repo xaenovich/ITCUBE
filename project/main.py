@@ -8,31 +8,22 @@ rand_colors =[]
 last_color = ''
 counter = 0
 
-#Границы Красного
-lower_r = array([170,100,90])
-upper_r = array([255,255,255])
-
-#Границы Зеленого
-lower_g = array([50,20,120])
-upper_g = array([90,120,255])
-
-#Границы Синего
-lower_b = array([95,70,140])
-upper_b = array([105,255,255])
-
+# Цвета и их границы
 colors = {
-    'red' : [lower_r,upper_r],
-    'green' : [lower_g,upper_g],
-    'blue' : [lower_b,upper_b],
+    'red' : [array([170,100,90]),array([255,255,255])],
+    'green' : [array([50,20,120]),array([90,120,255])],
+    'blue' : [array([95,70,140]),array([105,255,255])],
 }
 
 cap = VideoCapture(0)
+
 while counter != 3:
     item = all_colors[randint(0,2)]
     if last_color != item:
         rand_colors.append(item)
         last_color = item
         counter += 1
+
 print(rand_colors)
 
 while True:
@@ -50,7 +41,6 @@ while True:
 
     imshow('stream',frame)
 
-    #Выключение по нажатию или если набрано достаточно цветов
     if waitKey(1) == ord('q') or color_lst == rand_colors:
         print(color_lst)
         break
@@ -58,5 +48,6 @@ while True:
         color_lst = []
 
 destroyAllWindows()
+
 if color_lst == rand_colors:
     print('Вы выйграли')
