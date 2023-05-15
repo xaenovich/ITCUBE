@@ -45,6 +45,7 @@ while True:
         print(color_lst)
         break
     elif len(color_lst) == 3 and rand_colors != color_lst:
+        print(color_lst,'- Неверен')
         color_lst = []
 
 destroyAllWindows()
