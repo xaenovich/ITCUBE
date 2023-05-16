@@ -3,7 +3,7 @@ from numpy import array
 from random import randint
 
 all_colors = ['red','green','blue']
-color_lst = []
+color_lst = ['','']
 rand_colors =[]
 last_color = ''
 counter = 0
@@ -17,6 +17,7 @@ colors = {
 
 cap = VideoCapture(0)
 
+# Случайный список цветов
 while counter != 3:
     item = all_colors[randint(0,2)]
     if last_color != item:
@@ -26,29 +27,28 @@ while counter != 3:
 
 print(rand_colors)
 
+# Считывание изображения
 while True:
     far,frame = cap.read()
     hsv = cvtColor(frame,COLOR_BGR2HSV)  
     for color_name,(lower,upper) in colors.items():
         mask = inRange(hsv,lower,upper)
         count = countNonZero(mask)
-        if count > 100000:
-            putText(frame,color_name,(100,100),FONT_HERSHEY_TRIPLEX,1,(155,0,155),2)
+        if count > 80000:
+            putText(frame,color_name,(100,100),FONT_HERSHEY_TRIPLEX,1,(200,200,40),2)
             if last_color != color_name:
                 color_lst.append(color_name)
                 last_color = color_name
+                print(color_lst)
             break
 
     imshow('stream',frame)
 
+    # Выключение програмы
     if waitKey(1) == ord('q') or color_lst == rand_colors:
-        print(color_lst)
         break
     elif len(color_lst) == 3 and rand_colors != color_lst:
-        print(color_lst,'- Неверен')
         color_lst = []
-
-destroyAllWindows()
 
 if color_lst == rand_colors:
     print('Вы выйграли')
