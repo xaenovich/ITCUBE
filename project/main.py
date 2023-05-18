@@ -3,7 +3,7 @@ from numpy import array
 from random import randint
 
 all_colors = ['red','green','blue']
-color_lst = ['','']
+color_lst = []
 rand_colors =[]
 last_color = ''
 counter = 0
