@@ -1,3 +1,0 @@
-n = input()
-if len(n) == 6 :print(n[0],n[:-6:-1],sep = '')
-else:print(n[:-6:-1])
