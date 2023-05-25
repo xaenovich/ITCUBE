@@ -1,6 +1,0 @@
-mass = float(input())
-height = float(input())
-imt = (mass/height**2)*10000
-if 18.5 <imt< 25:print('оптимальная')
-if imt < 18.5:print('недостаточная')
-if imt > 25:print('избыточная')
